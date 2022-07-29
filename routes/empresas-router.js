@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+//agregar el modelo de la empresa.
+const mongoose = require('mongoose');
 
 const controller = require('../controllers/empresas-controller');
 

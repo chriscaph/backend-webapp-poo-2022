@@ -6,9 +6,9 @@ const schema = new mongoose.Schema({
     usuario: String,
     password: String,
     tipo: 'A' | 'B' | 'C',
-    aprobado: {type: Boolean | null, required: function(){return this.tipo == 'B';}},
-    ordenesTomadas: {type: [String], required: function(){return this.tipo == 'B';}},
-    ordenesEntregadas: {type: [String], required: function(){return this.tipo == 'B';}}
+    aprobado: Boolean | null,
+    ordenesTomadas: Array | null,
+    ordenesEntregadas: Array | null
 });
 
-module.exports = mongoose.model('usuario', schema);
+module.exports = mongoose.model('usuarios', schema);
