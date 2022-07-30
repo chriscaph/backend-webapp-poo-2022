@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
-const user = 'chris_caph';
-const password = '30B64aVWgp4VWnbz';
+const bd = 'delivery';
+const port = '27017';
+const host = 'localhost';
 
 class DataBase {
     constructor() {
@@ -9,7 +10,7 @@ class DataBase {
     }
 
     conectar() {
-        mongoose.connect(`mongodb+srv://${user}:${password}@cluster0.xrdtm.mongodb.net/?retryWrites=true&w=majority`)
+        mongoose.connect(`mongodb://${host}:${port}/${bd}`)
         .then(result => {
             console.log('Se conectó a MongoDB.');
         })

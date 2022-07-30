@@ -1,3 +1,5 @@
+const orden = require('../models/orden');
+
 //agregar orden.
 module.exports.postOrden = (req, res) => {
     res.send('Agregando orden.');

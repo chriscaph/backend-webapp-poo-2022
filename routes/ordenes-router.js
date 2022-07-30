@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-//agregar el modelo de la orden.
+const orden = require('../models/orden');
 const mongoose = require('mongoose');
 
 const controller = require('../controllers/ordenes-controller');

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-//agregar el modelo del producto.
+const producto = require('../models/producto');
 const mongoose = require('mongoose');
 
 const controller = require('../controllers/productos-controller');

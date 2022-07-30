@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
@@ -13,6 +14,11 @@ const ordenesRouter = require('./routes/ordenes-router');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+    secret: '12345',
+    resave: true,
+    saveUninitialized: true
+}));
 
 app.use('/usuarios', usuariosRouter);
 app.use('/categorias', categoriasRouter);

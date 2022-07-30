@@ -5,10 +5,12 @@ const mongoose = require('mongoose');
 
 const controller = require('../controllers/usuarios-controller');
 
-router.post('/', controller.postUsuario)
+router.post('/', controller.postUsuario);
 router.get('/', controller.getUsuarios);
 router.get('/:id', controller.getUsuario);
 router.put('/:id', controller.putUsuario);
 router.delete('/:id', controller.deleteUsuario);
+
+router.post('/login', controller.postUsuarioLogin);
 
 module.exports = router;

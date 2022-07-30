@@ -1,3 +1,5 @@
+const categoria = require('../models/categoria');
+
 //agregar categoria.
 module.exports.postCategoria = (req, res) => {
     res.send('Agregando categoria.');

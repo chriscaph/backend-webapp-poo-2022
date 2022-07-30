@@ -1,3 +1,5 @@
+const producto = require('../models/producto');
+
 //agregar producto.
 module.exports.postProducto = (req, res) => {
     res.send('Agregando producto.');

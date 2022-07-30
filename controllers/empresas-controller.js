@@ -1,3 +1,5 @@
+const empresa = require('../models/empresa');
+
 //agregar empresa.
 module.exports.postEmpresa = (req, res) => {
     res.send('Agregando empresa.');
