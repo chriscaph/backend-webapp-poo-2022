@@ -55,3 +55,38 @@ module.exports.postUsuarioLogin = (req, res) => {
         res.end();
     });
 }
+
+
+//obtener usuarios motoristas
+module.exports.getUsuariosMotoristas = (req, res) => {
+    usuario.find({tipo: 'B'})
+    .then(data => {
+        res.send(data);
+        res.end();
+    })
+    .catch(error => {
+        res.send(error);
+        res.end();
+    })
+}
+
+//asignar orden usuarios motoristas
+module.exports.putUsuarioOrdenMotoristas = (req, res) => {
+    usuario.find({_id: req.params.id})
+    .then(data => {
+        let o = data[0];
+        o.ordenesTomadas.push(req.body.nombre);
+        usuario.updateOne({_id: req.params.id}, o)
+            .then(data => {
+                res.send({ codigo: 1, mensaje: 'Orden asignada al motorista.' });
+                res.end();
+            })
+            .catch(error => {
+                res.send({ codigo: 0, mensaje: 'La orden no ha sido asignada.' });
+                res.end();
+            });
+    })
+    .catch(error => {
+        console.log('Error al obtener usuario motorista.');
+    });
+}
