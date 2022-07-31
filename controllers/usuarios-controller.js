@@ -59,7 +59,7 @@ module.exports.postUsuarioLogin = (req, res) => {
 
 //obtener usuarios motoristas
 module.exports.getUsuariosMotoristas = (req, res) => {
-    usuario.find({tipo: 'B'})
+    usuario.find({tipo: 'B'}, {nombre: true, ordenesTomadas: true, _id: true, ordenesEntregadas: true, aprobado: true})
     .then(data => {
         res.send(data);
         res.end();
@@ -88,5 +88,25 @@ module.exports.putUsuarioOrdenMotoristas = (req, res) => {
     })
     .catch(error => {
         console.log('Error al obtener usuario motorista.');
+    });
+}
+
+module.exports.putUsuarioMotorista = (req, res) => {
+    usuario.find({_id: req.params.id})
+    .then(data => {
+        let o = data[0];
+        o.aprobado = req.body.aprobado;
+        usuario.updateOne({_id: req.params.id}, o)
+            .then(data => {
+                res.send({ codigo: 1, mensaje: 'Cambios realizados.' });
+                res.end();
+            })
+            .catch(error => {
+                res.send({ codigo: 0, mensaje: 'Los cambios no han sido realizados.' });
+                res.end();
+            });
+    })
+    .catch(error => {
+        console.log('Error al obtener al usuario.');
     });
 }
