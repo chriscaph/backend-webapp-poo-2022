@@ -18,11 +18,11 @@ const schema = new mongoose.Schema({
             longitud: Number,
             latitud: Number
         },
-        estado: String,
+        estado: String | null,
         isv: Number,
         comisionMotorista: Number,
         comisionAdministrador: Number,
-        motorista: String
+        motorista: String | null
     }
 });
 

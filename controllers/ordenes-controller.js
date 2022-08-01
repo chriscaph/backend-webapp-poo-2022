@@ -2,8 +2,16 @@ const orden = require('../models/orden');
 
 //agregar orden.
 module.exports.postOrden = (req, res) => {
-    res.send('Agregando orden.');
-    res.end();
+    let o = new orden(req.body);
+    o.save()
+        .then(data => {
+            res.send('Tu orden será tomada en breve.');
+            res.end();
+        })
+        .catch(erro => {
+            res.send('Error al procesar la orden.');
+            res.end();
+        })
 }
 
 //leer ordenes.

@@ -36,24 +36,29 @@ module.exports.deleteUsuario = (req, res) => {
 }
 
 
-//login usuario.
-module.exports.postUsuarioLogin = (req, res) => {
+//login usuario A.
+module.exports.postUsuarioLoginA = (req, res) => {
     usuario.find({usuario: req.body.usuarioLogin, password: req.body.passwordLogin, tipo: 'A'})
-    .then(data => {
-        if (data.length == 0) {
-            res.send({codigo: 1, mensaje: 'El usuario no existe.'})
-        } else {
-            req.session.nombre = data[0].nombre;
-            req.session.usuario = data[0].usuario;
-            req.session.tipo = data[0].tipo;
-            res.send(req.session);
-            res.end();
-        }
-    })
-    .catch(error => {
-        res.send(error);
-        res.end();
-    });
+        .then(data => {
+            console.log(data);
+            if (data.length == 0) {
+                res.redirect('http://localhost/administrador/login.html')
+                res.end();
+            } else {
+                res.redirect('http://localhost/administrador/administrador.html');
+                res.end();
+            }
+        })
+}
+
+//login usuario B.
+module.exports.postUsuarioLoginB = (req, res) => {
+    
+}
+
+//login usuario C.
+module.exports.postUsuarioLoginC = (req, res) => {
+    
 }
 
 
@@ -70,7 +75,7 @@ module.exports.getUsuariosMotoristas = (req, res) => {
     })
 }
 
-//asignar orden usuarios motoristas
+//asignar orden usuarios motoristas.
 module.exports.putUsuarioOrdenMotoristas = (req, res) => {
     usuario.find({_id: req.params.id})
     .then(data => {
@@ -91,6 +96,7 @@ module.exports.putUsuarioOrdenMotoristas = (req, res) => {
     });
 }
 
+//aprobar usuario motorista.
 module.exports.putUsuarioMotorista = (req, res) => {
     usuario.find({_id: req.params.id})
     .then(data => {

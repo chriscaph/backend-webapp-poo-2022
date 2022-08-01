@@ -14,6 +14,8 @@ router.get('/:id', controller.getUsuario);
 router.put('/:id', controller.putUsuario);
 router.delete('/:id', controller.deleteUsuario);
 
-router.post('/login', controller.postUsuarioLogin);
+router.post('/login/A', controller.postUsuarioLoginA);
+router.post('/login/B', controller.postUsuarioLoginB);
+router.post('/login/C', controller.postUsuarioLoginC);
 
 module.exports = router;
