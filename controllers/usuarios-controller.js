@@ -38,29 +38,100 @@ module.exports.deleteUsuario = (req, res) => {
 
 //login usuario A.
 module.exports.postUsuarioLoginA = (req, res) => {
-    usuario.find({usuario: req.body.usuarioLogin, password: req.body.passwordLogin, tipo: 'A'})
+    console.log(req.body);
+    usuario.find(req.body)
         .then(data => {
-            console.log(data);
             if (data.length == 0) {
-                res.redirect('http://localhost/administrador/login.html')
+                res.send({codigo: 0, mensaje: '¡Administrador no registrado!'});
                 res.end();
             } else {
-                res.redirect('http://localhost/administrador/administrador.html');
+                res.send({codigo: 1, nombre: data[0].nombre, sesionIniciada: true});
+                res.end();
+            }
+        })
+        .catch(error => console.log(error));
+}
+
+//login usuario B.
+module.exports.postUsuarioLoginB = (req, res) => {
+    usuario.find(req.body)
+        .then(data => {
+            if (data.length == 0) {
+                res.send({codigo: 0, mensaje: '¡Motorista no registrado!'});
+                res.end();
+            } else {
+                if (data[0].aprobado === null) {
+                    res.send({codigo: 0, mensaje: '¡Motorista aún no aprobado!'});
+                    res.end();
+                } else if (data[0].aprobado === true) {
+                    res.send({codigo: 1, nombre: data[0].nombre, sesionIniciada: true});
+                    res.end();
+                } else {
+                    res.send({codigo: 0, mensaje: '¡El motorista fue rechazado!'});
+                    res.end();
+                }
+            }
+        })
+        .catch(error => console.log(error));
+}
+
+//registro usuario B.
+module.exports.postUsuarioRegistroB = (req, res) => {
+    usuario.find({usuario: req.body.usuario})
+        .then(data => {
+            if (data.length == 0) {
+                let u = new usuario(req.body);
+                u.save()
+                    .then(data => {
+                        res.send({codigo: 1, mensaje: 'Motorista registrado!'});
+                        res.end();
+                    })
+                    .catch(error => {
+                        res.send({codigo: 0, mensaje: '¡Error al registrar motorista!'});
+                    });
+            } else {
+                res.send({codigo: 0, mensaje: '¡El usuario ya existe!'});
                 res.end();
             }
         })
 }
 
-//login usuario B.
-module.exports.postUsuarioLoginB = (req, res) => {
-    
-}
-
 //login usuario C.
 module.exports.postUsuarioLoginC = (req, res) => {
-    
+    console.log(req.body);
+    usuario.find(req.body)
+        .then(data => {
+            if (data.length == 0) {
+                res.send({codigo: 0, mensaje: '¡Usuario no registrado!'});
+                res.end();
+            } else {
+                res.send({codigo: 1, nombre: data[0].nombre, sesionIniciada: true});
+                res.end();
+            }
+        })
+        .catch(error => console.log(error));
 }
 
+//registro usuario C.
+module.exports.postUsuarioRegistroC = (req, res) => {
+    usuario.find({usuario: req.body.usuario})
+        .then(data => {
+            if (data.length == 0) {
+                let u = new usuario(req.body);
+                u.save()
+                    .then(data => {
+                        res.send({codigo: 1, mensaje: '¡Usuario registrado!'});
+                        res.end();
+                    })
+                    .catch(error => {
+                        res.send({codigo: 0, mensaje: '¡Error al registrar usuario!'});
+                    });
+            } else {
+                res.send({codigo: 0, mensaje: '¡El usuario ya existe!'});
+                res.end();
+            }
+        })
+}
 
 //obtener usuarios motoristas
 module.exports.getUsuariosMotoristas = (req, res) => {

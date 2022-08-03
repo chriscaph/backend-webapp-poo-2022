@@ -17,4 +17,7 @@ router.post('/login/A', controller.postUsuarioLoginA);
 router.post('/login/B', controller.postUsuarioLoginB);
 router.post('/login/C', controller.postUsuarioLoginC);
 
+router.post('/registro/B', controller.postUsuarioRegistroB);
+router.post('/registro/C', controller.postUsuarioRegistroC);
+
 module.exports = router;
