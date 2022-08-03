@@ -2,7 +2,11 @@ const categoria = require('../models/categoria');
 
 //agregar categoria.
 module.exports.postCategoria = (req, res) => {
-    let c = new categoria(req.body);
+    let c = new categoria({
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+        imagen: `http://localhost:4200/public/${req.file.originalname}`
+    });
     c.save()
     .then(data => {
         res.send({codigo: 1, mensaje: 'Categoría agregada con éxito.'});
@@ -44,7 +48,16 @@ module.exports.getCategoria = (req, res) => {
 
 //actualizar categoria.
 module.exports.putCategoria = (req, res) => {
-    categoria.update({_id: req.params.id}, req.body)
+
+    if (req.file) {
+        req.body.imagen = `http://localhost:4200/public/${req.file.originalname}`
+    }
+
+    categoria.updateOne({_id: req.params.id}, {
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+        imagen: req.body.imagen
+    })
     .then(data => {
         res.send({codigo: 1, mensaje: '¡Categoría actualizada!'});
         res.end();

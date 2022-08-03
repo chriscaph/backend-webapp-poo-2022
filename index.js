@@ -11,14 +11,10 @@ const empresasRouter = require('./routes/empresas-router');
 const productosRouter = require('./routes/productos-router');
 const ordenesRouter = require('./routes/ordenes-router');
 
+app.use('/public', express.static(`storage/imgs`));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(session({
-    secret: '12345',
-    resave: true,
-    saveUninitialized: true
-}));
 
 app.use('/usuarios', usuariosRouter);
 app.use('/categorias', categoriasRouter);

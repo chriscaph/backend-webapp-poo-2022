@@ -9,7 +9,6 @@ router.post('/', controller.postUsuario);
 router.get('/', controller.getUsuarios);
 router.put('/motoristas/:id', controller.putUsuarioMotorista);
 router.get('/motoristas', controller.getUsuariosMotoristas);
-router.put('/motoristas/asignarOrden/:id', controller.putUsuarioOrdenMotoristas);
 router.get('/:id', controller.getUsuario);
 router.put('/:id', controller.putUsuario);
 router.delete('/:id', controller.deleteUsuario);

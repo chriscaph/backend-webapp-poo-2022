@@ -22,8 +22,15 @@ module.exports.getOrdenes = (req, res) => {
 
 //leer orden.
 module.exports.getOrden = (req, res) => {
-    res.send('Leyendo orden ' + req.params.id);
-    res.end();
+    orden.find({_id: req.params.id})
+        .then(data => {
+            res.send(data[0]);
+            res.end();
+        })
+        .catch(error => {
+            res.send(error);
+            res.end();
+        });
 }
 
 //actualizar orden.
@@ -31,22 +38,36 @@ module.exports.putOrden = (req, res) => {
     orden.find({_id: req.params.id})
     .then(data => {
         let o = data[0];
-        o.envio.motorista = req.body.nombre;
+        o.motorista = req.body._id;
         o.estado = 'sinEntregar';
         o.envio.estado = 'tomada';
         orden.updateOne({_id: req.params.id}, o)
             .then(data => {
-                res.send({ codigo: 1, mensaje: 'Orden actualizada.' });
+                res.send({ codigo: 1, mensaje: '¡Orden tomada con éxito!' });
                 res.end();
             })
             .catch(error => {
-                res.send({ codigo: 0, mensaje: 'La orden no ha sido actualizada.' });
+                res.send({ codigo: 0, mensaje: 'La orden no ha sido tomada.' });
                 res.end();
             });
     })
     .catch(error => {
-        console.log('Error al obtener usuario motorista.');
+        console.log('Error al obtener la orden.');
     });
+}
+
+//actualizar orden tomada.
+module.exports.putOrdenTomada = (req, res) => {
+    console.log(req.body);
+    orden.updateOne({_id: req.params.id}, req.body)
+        .then(data => {
+            res.send('Orden tomada actualizada.');
+            res.end();
+        })
+        .catch(error => {
+            res.send(error);
+            res.end();
+        });
 }
 
 //eliminar orden.
@@ -59,6 +80,32 @@ module.exports.deleteOrden = (req, res) => {
 //leer ordenes disponibles.
 module.exports.getOrdenesDisponibles = (req, res) => {
     orden.find({estado: 'disponible'})
+    .then(data => {
+        res.send(data);
+        res.end();
+    })
+    .catch(error => {
+        res.send(error);
+        res.end();
+    });
+}
+
+//leer ordenes sin entregar.
+module.exports.getOrdenesSinEntregar = (req, res) => {
+    orden.find({estado: 'sinEntregar', motorista: req.params.id})
+    .then(data => {
+        res.send(data);
+        res.end();
+    })
+    .catch(error => {
+        res.send(error);
+        res.end();
+    });
+}
+
+//leer ordenes entregadas.
+module.exports.getOrdenesEntregadas = (req, res) => {
+    orden.find({estado: 'entregada', motorista: req.params.id})
     .then(data => {
         res.send(data);
         res.end();

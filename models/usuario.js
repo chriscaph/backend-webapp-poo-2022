@@ -5,8 +5,6 @@ const schema = new mongoose.Schema({
     usuario: String,
     password: String,
     tipo: 'A' | 'B' | 'C',
-    ordenesTomadas: Array | null,
-    ordenesEntregadas: Array | null,
     aprobado: Boolean | null
 });
 

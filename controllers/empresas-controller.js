@@ -2,7 +2,18 @@ const empresa = require('../models/empresa');
 
 //agregar empresa.
 module.exports.postEmpresa = (req, res) => {
-    let e = new empresa(req.body);
+    let e = new empresa({
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono,
+        correo: req.body.correo,
+        codigoCategoria: req.body.codigoCategoria,
+        calificacion: req.body.calificacion,
+        logo: `http://localhost:4200/public/${req.files.logo[0].originalname}`,
+        banner: `http://localhost:4200/public/${req.files.banner[0].originalname}`
+    });
+
     e.save()
     .then(data => {
         res.send({codigo: 1, mensaje: 'Empresa agregada con éxito.'});
@@ -42,7 +53,15 @@ module.exports.getEmpresa = (req, res) => {
 
 //actualizar empresa.
 module.exports.putEmpresa = (req, res) => {
-    empresa.update({_id: req.params.id}, req.body)
+    if (req.files['banner']) {
+        req.body.banner = `http://localhost:4200/public/${req.files.banner[0].originalname}`
+    }
+
+    if (req.files['logo']) {
+        req.body.logo = `http://localhost:4200/public/${req.files.logo[0].originalname}`
+    }
+
+    empresa.updateOne({_id: req.params.id}, req.body)
     .then(data => {
         res.send({codigo: 1, mensaje: 'empresa actualizada!'});
         res.end();

@@ -2,7 +2,14 @@ const producto = require('../models/producto');
 
 //agregar producto.
 module.exports.postProducto = (req, res) => {
-    let p = new producto(req.body);
+    let p = new producto({
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+        cantidad: req.body.cantidad,
+        precio: req.body.precio,
+        imagen: `http://localhost:4200/public/${req.file.originalname}`,
+        codigoEmpresa: req.body.codigoEmpresa
+    });
     p.save()
     .then(data => {
         res.send({codigo: 1, mensaje: 'Producto agregado con éxito.'});
@@ -42,7 +49,17 @@ module.exports.getProducto = (req, res) => {
 
 //actualizar producto.
 module.exports.putProducto = (req, res) => {
-    producto.update({_id: req.params.id}, req.body)
+    if (req.file) {
+        req.body.imagen = `http://localhost:4200/public/${req.file.originalname}`
+    }
+    producto.updateOne({_id: req.params.id}, {
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+        cantidad: req.body.cantidad,
+        precio: req.body.precio,
+        imagen: req.body.imagen,
+        codigoEmpresa: req.body.codigoEmpresa
+    })
     .then(data => {
         res.send({codigo: 1, mensaje: 'Producto actualizado!'});
         res.end();

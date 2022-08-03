@@ -21,9 +21,9 @@ const schema = new mongoose.Schema({
         estado: String | null,
         isv: Number,
         comisionMotorista: Number,
-        comisionAdministrador: Number,
-        motorista: String | null
-    }
+        comisionAdministrador: Number
+    },
+    motorista: mongoose.Schema.Types.ObjectId | null
 });
 
 module.exports = mongoose.model('ordenes', schema);
