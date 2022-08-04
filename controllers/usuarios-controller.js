@@ -38,14 +38,15 @@ module.exports.deleteUsuario = (req, res) => {
 
 //login usuario A.
 module.exports.postUsuarioLoginA = (req, res) => {
-    console.log(req.body);
     usuario.find(req.body)
         .then(data => {
             if (data.length == 0) {
                 res.send({codigo: 0, mensaje: '¡Administrador no registrado!'});
                 res.end();
             } else {
-                res.send({codigo: 1, nombre: data[0].nombre, sesionIniciada: true});
+                req.session.nombre = data[0].nombre;
+
+                res.send({codigo: 1, nombre: req.session.nombre, idSession: req.session.id, sesionIniciada: true});
                 res.end();
             }
         })
@@ -64,7 +65,9 @@ module.exports.postUsuarioLoginB = (req, res) => {
                     res.send({codigo: 0, mensaje: '¡Motorista aún no aprobado!'});
                     res.end();
                 } else if (data[0].aprobado === true) {
-                    res.send({codigo: 1, nombre: data[0].nombre, sesionIniciada: true});
+                    req.session.nombre = data[0].nombre;
+
+                    res.send({codigo: 1, id: data[0]._id, idSession: req.session.id, nombre: data[0].nombre, sesionIniciada: true});
                     res.end();
                 } else {
                     res.send({codigo: 0, mensaje: '¡El motorista fue rechazado!'});
@@ -105,7 +108,9 @@ module.exports.postUsuarioLoginC = (req, res) => {
                 res.send({codigo: 0, mensaje: '¡Usuario no registrado!'});
                 res.end();
             } else {
-                res.send({codigo: 1, nombre: data[0].nombre, sesionIniciada: true});
+                req.session.nombre = data[0].nombre;
+
+                res.send({codigo: 1, nombre: req.session.nombre, idSession: req.session.id, sesionIniciada: true});
                 res.end();
             }
         })
