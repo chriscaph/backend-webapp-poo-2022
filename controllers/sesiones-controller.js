@@ -2,7 +2,6 @@ const sesion = require('../models/sesion');
 
 //verificar sesion.
 module.exports.getSession = (req, res) => {
-    console.log('el id', req.params.id);
     sesion.find({_id: req.params.id})
         .then(data => {
             if (data.length == 0) {
@@ -14,4 +13,10 @@ module.exports.getSession = (req, res) => {
             }
         })
         .catch(error => console.log('error en el sesion', error));
+}
+
+module.exports.getCerrarSession = (req, res) => {
+    sesion.deleteOne({_id: req.params.id})
+        .then(data => console.log('eliminado'))
+        .catch(error => console.log('no eliminado'));
 }
