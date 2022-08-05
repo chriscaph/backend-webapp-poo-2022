@@ -110,7 +110,7 @@ module.exports.postUsuarioLoginC = (req, res) => {
             } else {
                 req.session.nombre = data[0].nombre;
 
-                res.send({codigo: 1, nombre: req.session.nombre, idSession: req.session.id, sesionIniciada: true});
+                res.send({codigo: 1, nombre: req.session.nombre, idSession: req.session.id, id: data[0]._id, sesionIniciada: true});
                 res.end();
             }
         })

@@ -115,3 +115,16 @@ module.exports.getOrdenesEntregadas = (req, res) => {
         res.end();
     });
 }
+
+//leer ordenes pendientes de los usuarios.
+module.exports.getOrdenesPendientes = (req, res) => {
+    orden.find({idCliente: req.params.id, $or: [{estado: 'disponible'}, {estado: 'sinEntregar'}]})
+        .then(data => {
+            res.send(data);
+            res.end();
+        })
+        .catch(error => {
+            res.send(error);
+            res.end();
+        });
+}

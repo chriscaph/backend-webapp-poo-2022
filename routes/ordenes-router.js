@@ -14,5 +14,6 @@ router.get('/:id', controller.getOrden);
 router.put('/:id', controller.putOrden);
 router.put('/tomada/:id', controller.putOrdenTomada);
 router.delete('/:id', controller.deleteOrden);
+router.get('/pendientes/:id', controller.getOrdenesPendientes)
 
 module.exports = router;
