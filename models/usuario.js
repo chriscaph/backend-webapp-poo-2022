@@ -5,7 +5,8 @@ const schema = new mongoose.Schema({
     usuario: String,
     password: String,
     tipo: 'A' | 'B' | 'C',
-    aprobado: Boolean | null
+    aprobado: Boolean | null,
+    carrito: Array
 });
 
 module.exports = mongoose.model('usuarios', schema);

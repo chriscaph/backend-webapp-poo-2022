@@ -35,6 +35,31 @@ module.exports.deleteUsuario = (req, res) => {
     res.end();
 }
 
+//actualizar carrito usuario.
+module.exports.putCarritoUsuario = (req, res) => {
+    console.log(req.params.id)
+    usuario.updateOne({_id: req.params.id}, {$set: {carrito: req.body}})
+        .then(() => {
+            console.log('agregado el carrito');
+            res.end();
+        })
+}
+
+//obtener carrito usuario.
+module.exports.getCarritoUsuario = (req, res) => {
+    console.log(req.params.id)
+    usuario.find({_id: req.params.id}).
+        then(data => {
+            console.log('data', data);
+            if (data.length != 0) {
+                res.send(data[0].carrito);
+            } else {
+                res.send([]);
+            }
+            res.end();
+        })
+        .catch(error => console.log('error', error))
+}
 
 //login usuario A.
 module.exports.postUsuarioLoginA = (req, res) => {
