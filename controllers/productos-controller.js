@@ -72,7 +72,7 @@ module.exports.putProducto = (req, res) => {
 
 //eliminar producto.
 module.exports.deleteProducto = (req, res) => {
-    producto.remove({_id: req.params.id})
+    producto.deleteOne({_id: req.params.id})
     .then(() => {
         res.send({codigo: 1, mensaje: 'Producto eliminado.'});
     })

@@ -1,4 +1,6 @@
 const categoria = require('../models/categoria');
+const empresa = require('../models/empresa');
+const producto = require('../models/producto');
 
 //agregar categoria.
 module.exports.postCategoria = (req, res) => {
@@ -70,7 +72,27 @@ module.exports.putCategoria = (req, res) => {
 
 //eliminar categoria.
 module.exports.deleteCategoria = (req, res) => {
-    categoria.remove({_id: req.params.id})
+    empresa.find({codigoCategoria: req.params.id})
+        .then(data => {
+            console.log('data: ', data);
+            data.forEach(emp => {
+                producto.deleteMany({codigoEmpresa: emp._id})
+                    .then(() => {
+                        console.log('productos eliminados');
+                    })
+                    .catch(error => {
+                        console.log('error al eliminar productos.', error);
+                    })
+                empresa.deleteMany({codigoCategoria: req.params.id})
+                    .then(() => {
+                        console.log('empresas eliminadas.');
+                    })
+                    .catch(error => {
+                        console.log('error al eliminar las empresas.', error);
+                    })
+            })
+        })
+    categoria.deleteOne({_id: req.params.id})
     .then(() => {
         res.send({codigo: 1, mensaje: 'Categoría eliminada.'});
     })

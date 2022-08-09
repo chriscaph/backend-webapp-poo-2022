@@ -1,4 +1,5 @@
 const empresa = require('../models/empresa');
+const producto = require('../models/producto');
 
 //agregar empresa.
 module.exports.postEmpresa = (req, res) => {
@@ -74,7 +75,14 @@ module.exports.putEmpresa = (req, res) => {
 
 //eliminar empresa.
 module.exports.deleteEmpresa = (req, res) => {
-    empresa.remove({_id: req.params.id})
+    producto.deleteMany({codigoEmpresa: req.params.id})
+        .then(data => {
+            console.log('productos eliminados');
+        })
+        .catch(error => {
+            console.log('productos no eliminados');
+        })
+    empresa.deleteOne({_id: req.params.id})
     .then(() => {
         res.send({codigo: 1, mensaje: 'Empresa eliminada.'});
     })
