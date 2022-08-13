@@ -5,11 +5,11 @@ module.exports.postOrden = (req, res) => {
     let o = new orden(req.body);
     o.save()
         .then(data => {
-            res.send('Tu orden será tomada en breve.');
+            res.send({codigo: 1, mensaje: 'Tu orden será tomada en breve.'});
             res.end();
         })
-        .catch(erro => {
-            res.send('Error al procesar la orden.');
+        .catch(error => {
+            res.send({codigo: 0, mensaje: 'Error al procesar la orden.'});
             res.end();
         })
 }

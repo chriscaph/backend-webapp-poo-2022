@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const controller = require('../controllers/ordenes-controller');
 
-router.post('/', controller.postOrden)
+router.post('/', controller.postOrden);
 router.get('/', controller.getOrdenes);
 router.get('/disponibles', controller.getOrdenesDisponibles);
 router.get('/sinEntregar/:id', controller.getOrdenesSinEntregar);
