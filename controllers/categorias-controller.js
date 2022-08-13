@@ -12,12 +12,10 @@ module.exports.postCategoria = (req, res) => {
     c.save()
     .then(data => {
         res.send({codigo: 1, mensaje: 'Categoría agregada con éxito.'});
-        console.log('agregada a la colección.');
         res.end();
     })
     .catch(error => {
         res.send({codigo:0, mensaje: 'Error al añadir la categoría.'});
-        console.log('no agregada a la colección.');
         res.end();
     });
 }
@@ -74,22 +72,9 @@ module.exports.putCategoria = (req, res) => {
 module.exports.deleteCategoria = (req, res) => {
     empresa.find({codigoCategoria: req.params.id})
         .then(data => {
-            console.log('data: ', data);
             data.forEach(emp => {
                 producto.deleteMany({codigoEmpresa: emp._id})
-                    .then(() => {
-                        console.log('productos eliminados');
-                    })
-                    .catch(error => {
-                        console.log('error al eliminar productos.', error);
-                    })
                 empresa.deleteMany({codigoCategoria: req.params.id})
-                    .then(() => {
-                        console.log('empresas eliminadas.');
-                    })
-                    .catch(error => {
-                        console.log('error al eliminar las empresas.', error);
-                    })
             })
         })
     categoria.deleteOne({_id: req.params.id})

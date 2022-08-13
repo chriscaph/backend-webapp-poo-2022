@@ -12,11 +12,10 @@ module.exports.getSession = (req, res) => {
                 res.end();
             }
         })
-        .catch(error => console.log('error en el sesion', error));
 }
 
+//cerrar sesión.
 module.exports.getCerrarSession = (req, res) => {
     sesion.deleteOne({_id: req.params.id})
-        .then(data => console.log('eliminado'))
-        .catch(error => console.log('no eliminado'));
+        .then(() => console.log('sesion cerrada.'))
 }

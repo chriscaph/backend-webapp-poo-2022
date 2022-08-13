@@ -14,7 +14,7 @@ const ordenesRouter = require('./routes/ordenes-router');
 const sesionesRouter = require('./routes/sesiones-router');
 const MongoStore = require('connect-mongo');
 
-const MONGO_URL = 'mongodb://127.0.0.1:27017/delivery';
+const MONGO_URL = 'mongodb+srv://chris_caph:i3kyawHUqMynL2WI@cluster0.xrdtm.mongodb.net/?retryWrites=true&w=majority';
 
 app.use(session({
     secret : 'abcde',

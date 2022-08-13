@@ -6,7 +6,7 @@ const schema = new mongoose.Schema({
     password: String,
     tipo: 'A' | 'B' | 'C',
     aprobado: Boolean | null,
-    carrito: Array
+    carrito: Array | null
 });
 
 module.exports = mongoose.model('usuarios', schema);

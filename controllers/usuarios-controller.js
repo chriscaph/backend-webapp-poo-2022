@@ -37,20 +37,16 @@ module.exports.deleteUsuario = (req, res) => {
 
 //actualizar carrito usuario.
 module.exports.putCarritoUsuario = (req, res) => {
-    console.log(req.params.id)
     usuario.updateOne({_id: req.params.id}, {$set: {carrito: req.body}})
         .then(() => {
-            console.log('agregado el carrito');
             res.end();
         })
 }
 
 //obtener carrito usuario.
 module.exports.getCarritoUsuario = (req, res) => {
-    console.log(req.params.id)
     usuario.find({_id: req.params.id}).
         then(data => {
-            console.log('data', data);
             if (data.length != 0) {
                 res.send(data[0].carrito);
             } else {
@@ -58,7 +54,6 @@ module.exports.getCarritoUsuario = (req, res) => {
             }
             res.end();
         })
-        .catch(error => console.log('error', error))
 }
 
 //login usuario A.
@@ -75,7 +70,6 @@ module.exports.postUsuarioLoginA = (req, res) => {
                 res.end();
             }
         })
-        .catch(error => console.log(error));
 }
 
 //login usuario B.
@@ -100,7 +94,6 @@ module.exports.postUsuarioLoginB = (req, res) => {
                 }
             }
         })
-        .catch(error => console.log(error));
 }
 
 //registro usuario B.
@@ -126,7 +119,6 @@ module.exports.postUsuarioRegistroB = (req, res) => {
 
 //login usuario C.
 module.exports.postUsuarioLoginC = (req, res) => {
-    console.log(req.body);
     usuario.find(req.body)
         .then(data => {
             if (data.length == 0) {
@@ -139,7 +131,6 @@ module.exports.postUsuarioLoginC = (req, res) => {
                 res.end();
             }
         })
-        .catch(error => console.log(error));
 }
 
 //registro usuario C.
@@ -192,7 +183,4 @@ module.exports.putUsuarioMotorista = (req, res) => {
                 res.end();
             });
     })
-    .catch(error => {
-        console.log('Error al obtener al usuario.');
-    });
 }

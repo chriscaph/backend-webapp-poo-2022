@@ -76,12 +76,6 @@ module.exports.putEmpresa = (req, res) => {
 //eliminar empresa.
 module.exports.deleteEmpresa = (req, res) => {
     producto.deleteMany({codigoEmpresa: req.params.id})
-        .then(data => {
-            console.log('productos eliminados');
-        })
-        .catch(error => {
-            console.log('productos no eliminados');
-        })
     empresa.deleteOne({_id: req.params.id})
     .then(() => {
         res.send({codigo: 1, mensaje: 'Empresa eliminada.'});

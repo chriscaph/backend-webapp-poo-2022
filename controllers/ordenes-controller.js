@@ -51,14 +51,10 @@ module.exports.putOrden = (req, res) => {
                 res.end();
             });
     })
-    .catch(error => {
-        console.log('Error al obtener la orden.');
-    });
 }
 
 //actualizar orden tomada.
 module.exports.putOrdenTomada = (req, res) => {
-    console.log(req.body);
     orden.updateOne({_id: req.params.id}, req.body)
         .then(data => {
             res.send('Orden tomada actualizada.');

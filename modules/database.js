@@ -10,7 +10,8 @@ class DataBase {
     }
 
     conectar() {
-        mongoose.connect(`mongodb://${host}:${port}/${bd}`)
+        //mongoose.connect(`mongodb://${host}:${port}/${bd}`)
+        mongoose.connect('mongodb+srv://chris_caph:i3kyawHUqMynL2WI@cluster0.xrdtm.mongodb.net/?retryWrites=true&w=majority')
         .then(result => {
             console.log('Se conectó a MongoDB.');
         })
