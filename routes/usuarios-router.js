@@ -11,7 +11,8 @@ router.get('/motoristas', controller.getUsuariosMotoristas);
 router.put('/carrito/:id', controller.putCarritoUsuario);
 router.get('/carrito/:id', controller.getCarritoUsuario);
 // router.get('/:id', controller.getUsuario);
-// router.put('/:id', controller.putUsuario);
+router.put('/usuario/:id', controller.putUsuario);
+router.put('/password/:id', controller.putPassword);
 router.delete('/:id', controller.deleteUsuario);
 
 router.post('/login/A', controller.postUsuarioLoginA);

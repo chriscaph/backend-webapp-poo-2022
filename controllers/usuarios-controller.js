@@ -21,11 +21,16 @@ module.exports.getUsuario = (req, res) => {
     res.end();
 }
 
-//actualizar usuario.
+//actualizar usuario usuario.
 module.exports.putUsuario = (req, res) => {
-    res.send('Actualizando usuario ' + req.params.id);
+    usuario.updateOne({_id: req.params.id}, {$set: {usuario: req.body.usuario}})
+        .then(() => res.end())
+}
 
-    res.end();
+//actualizar password usuario.
+module.exports.putPassword = (req, res) => {
+    usuario.updateOne({_id: req.params.id}, {$set: {password: req.body.password}})
+    .then(() => res.end())
 }
 
 //eliminar usuario.
