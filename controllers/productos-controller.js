@@ -80,3 +80,14 @@ module.exports.deleteProducto = (req, res) => {
         res.send({codigo: 0, mensaje: 'No se eliminó el producto.'});
     });
 }
+
+//actualizar cantidad del producto.
+module.exports.putCantidad = (req, res) => {
+    producto.find({_id: req.params.id})
+        .then(data => {
+            let cant = data[0].cantidad
+            cant = cant - req.body.cantidad
+            producto.updateOne({_id: req.params.id}, {$set: {cantidad: cant}})
+                .then(() => res.end())
+        })
+}
